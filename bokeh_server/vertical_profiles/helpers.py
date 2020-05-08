@@ -16,12 +16,19 @@ def read_csv(filepath):
     return list(reader)
 
 def get_min_max(reader):
-  tot_min = []
-  tot_max = []
+  tot = []
   for line in reader:
-      tot_min.append(min(line['temp_33m'], line['temp_10m'], line['temp_5m'], line['temp_2m']))
-      tot_max.append(max(line['temp_33m'], line['temp_10m'], line['temp_5m'], line['temp_2m']))
-  
-  return min(tot_min), max(tot_max)
+      if(line['data']+","+line['ora'] == '2020-01-15,16:30:00'):
+        print(line)
+      tot.append(line['temp_33m'])
+      tot.append(line['temp_10m'])
+      tot.append(line['temp_5m'])
+      tot.append(line['temp_2m'])
+
+  return min(tot), max(tot)
+
+def get_datetime_string(line):
+  if(line != None):
+    return f'<ul><li>Date: {line["data"]}</li><li>Time: {line["ora"]}</li></ul>'
 
 #read_csv('data/202001.temp.csv')
